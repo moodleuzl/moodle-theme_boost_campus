@@ -202,6 +202,51 @@ By checking this setting the default homepage link (Dashboard or Site home) will
 
 By checking this setting you can enlarge the opened nav drawer menu to the full page width on small screens. This may be wanted because on small screens only very few of the main content area in the background is visible. And a full width menu might serve the users' expectations how menus are displayed on small screens.
 
+#### Information banner
+
+##### Enable info banner
+
+With this checkbox you can decide if the info banner should be shown or hidden on the selected pages.
+
+##### Information banner content (dependent on setting "Enable info banner")
+
+Enter your information which should be shown within the banner here.
+
+##### Pages to display the info banner on (dependent on setting "Enable info banner")
+
+With this setting you can select the pages on which the info banner should be displayed.
+
+##### Bootstrap css class (dependent on setting "Enable info banner")
+
+With this setting you can select the Bootstrap style with which the info banner should be displayed.
+
+##### Info banner dismissible (dependent on setting "Enable info banner")
+
+With this checkbox you can make the banner dismissible permanently. If the user clicks on the x-button a confirmation dialogue will appear and only after the user confirmed this dialogue the banner will be hidden for this user permanently. 
+
+Please note:
+
+This setting has no effect for the banners shown on the login page. Because banner on the login page cannot be clicked away permanently, we do not offer the possibility to click the banner away at all on the login page.
+
+##### Confirmation dialogue
+
+When you enable this setting you can show a confirmation dialogue to a user when he is dismissing the info banner.
+
+The text is saved in the string with the name \"closinginfobanner\":
+```
+Are you sure you want to dismiss this information? Once done it will not occur again!
+```
+You can override this within your language customization if you need some other text in this dialogue.
+
+##### Reset visibility
+
+By enabling this checkbox, the visibility of the individually dismissed info banners will be set to visible again. You can use this setting if you made important content changes and want to show the info to all users again.
+
+Please note:
+
+After saving this option, the database operations for resetting the visibility will be triggered and this checkbox will be unticked again. The next enabling and saving of this feature will trigger the database operations for resetting the visibility again.
+
+
 ### 6. Tab "Design Settings"
 
 #### Login Page

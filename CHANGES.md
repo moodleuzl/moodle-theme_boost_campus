@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2020-06-10 - Added settings to be able to show a banner with information on selected pages.
 * 2020-06-08 - Adjusted post.scss due to upstream changes in theme Boost.
 * 2020-06-08 - Fixed functionality bug for back to top button.
 * 2020-06-05 - Fixing broken behat step.

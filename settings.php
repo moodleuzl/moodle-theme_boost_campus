@@ -524,12 +524,113 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Settings title to group information banner settings together with a common heading and description.
+    $name = 'theme_boost_campus/infobannerheading';
+    $title = get_string('infobannerheadingsetting', 'theme_boost_campus', null, true);
+    $description = get_string('infobannerheadingsetting_desc', 'theme_boost_campus', null, true);
+    $setting = new admin_setting_heading($name, $title, $description);
+    $page->add($setting);
+
+    // Activate information banner.
+    $name = 'theme_boost_campus/infobannerenable';
+    $title = get_string('infobannerenablesetting', 'theme_boost_campus', null, true);
+    $description = get_string('infobannerenablesetting_desc', 'theme_boost_campus', null, true);
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Information banner content.
+    $name = 'theme_boost_campus/infobannercontent';
+    $title = get_string('infobannercontent', 'theme_boost_campus', null, true);
+    $description = get_string('infobannercontent_desc', 'theme_boost_campus', null, true);
+    $setting = new admin_setting_confightmleditor($name, $title, $description, '');
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+    $settings->hide_if('theme_boost_campus/infobannercontent',
+            'theme_boost_campus/infobannerenable', 'notchecked');
+
+    // Select pages on which the information banner should be shown.
+    $name = 'theme_boost_campus/infobannerpagestoshow';
+    $title = get_string('infobannerpagestoshowsetting', 'theme_boost_campus', null, true);
+    $description = get_string('infobannerpagestoshowsetting_desc', 'theme_boost_campus', null, true);
+    $infobannerpageoptions = [
+        // Don't use string lazy loading (= false) because the string will be directly used and would produce a
+        // PHP warning otherwise.
+            'mydashboard' => get_string('myhome', 'core', null, false),
+            'course' => get_string('course', 'core', null, false),
+            'login' => get_string('login_page', 'theme_boost_campus', null, false)
+    ];
+    $setting = new admin_setting_configmultiselect($name, $title, $description,
+            array($infobannerpageoptions['mydashboard']), $infobannerpageoptions);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+    $settings->hide_if('theme_boost_campus/infobannerpagestoshow',
+            'theme_boost_campus/infobannerenable', 'notchecked');
+
+    // Select the bootstrap class that should be used for the info banner.
+    $name = 'theme_boost_campus/infobannercssclass';
+    $title = get_string('infobannercssclasssetting', 'theme_boost_campus', null, true);
+    $description = get_string('infobannercssclasssetting_desc', 'theme_boost_campus', null, true);
+    $infobannerpageoptions = [
+        // Don't use string lazy loading (= false) because the string will be directly used and would produce a
+        // PHP warning otherwise.
+            'primary' => get_string('bootstrapprimarycolor', 'theme_boost_campus', null, false),
+            'secondary' => get_string('bootstrapsecondarycolor', 'theme_boost_campus', null, false),
+            'success' => get_string('bootstrapsuccesscolor', 'theme_boost_campus', null, false),
+            'danger' => get_string('bootstrapdangercolor', 'theme_boost_campus', null, false),
+            'warning' => get_string('bootstrapwarningcolor', 'theme_boost_campus', null, false),
+            'info' => get_string('bootstrapinfocolor', 'theme_boost_campus', null, false),
+            'light' => get_string('bootstraplightcolor', 'theme_boost_campus', null, false),
+            'dark' => get_string('bootstrapdarkcolor', 'theme_boost_campus', null, false)
+    ];
+    $setting = new admin_setting_configselect($name, $title, $description, $infobannerpageoptions['primary'],
+            $infobannerpageoptions);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+    $settings->hide_if('theme_boost_campus/infobannercssclass',
+            'theme_boost_campus/infobannerenable', 'notchecked');
+
+    // Information banner dismissible.
+    $name = 'theme_boost_campus/infobannerdismissible';
+    $title = get_string('infobannerdismissiblesetting', 'theme_boost_campus', null, true);
+    $description = get_string('infobannerdismissiblesetting_desc', 'theme_boost_campus', null, true);
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+    $settings->hide_if('theme_boost_campus/infobannerdismissible',
+            'theme_boost_campus/infobannerenable', 'notchecked');
+
+    // Information banner show confirmation dialogue when dismissing.
+    $name = 'theme_boost_campus/infobannerconfirmdialogue';
+    $title = get_string('infobannerconfirmdialoguesetting', 'theme_boost_campus', null, true);
+    $description = get_string('infobannerconfirmdialoguesetting_desc', 'theme_boost_campus', null, true);
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+    $settings->hide_if('theme_boost_campus/infobannerconfirmdialogue',
+            'theme_boost_campus/infobannerenable', 'notchecked');
+    $settings->hide_if('theme_boost_campus/infobannerconfirmdialogue',
+            'theme_boost_campus/infobannerdismissible', 'notchecked');
+
+    // Reset the user preference for all users.
+    $name = 'theme_boost_campus/infobannerresetresetvisiblity';
+    $title = get_string('infobannerresetvisiblitysetting', 'theme_boost_campus', null, true);
+    $description = get_string('infobannerresetvisiblitysetting_desc', 'theme_boost_campus', null, true);
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $setting->set_updatedcallback('theme_boost_campus_infobanner_reset_visbility');
+    $page->add($setting);
+    $settings->hide_if('theme_boost_campus/infobannerresetresetvisiblity',
+            'theme_boost_campus/infobannerenable', 'notchecked');
+    $settings->hide_if('theme_boost_campus/infobannerresetresetvisiblity',
+            'theme_boost_campus/infobannerdismissible', 'notchecked');
+
     // Add tab to settings page.
     $settings->add($page);
 
 
      // Create design settings tab.
-    $page = new admin_settingpage('theme_boost_campus_design', get_string('designsettings', 'theme_boost_campus', null, true));
+    $page = new admin_settingpage('theme_boost_campus_design', get_string('designsettings',
+            'theme_boost_campus', null, true));
 
     // Settings title to group login page related settings together with a common heading. We don't want a description here.
     $name = 'theme_boost_campus/loginpagedesignheading';

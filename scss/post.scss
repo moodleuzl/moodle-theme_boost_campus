@@ -874,6 +874,14 @@ a[href^="mailto"]::before {
     flex-shrink: 0;
 }
 
+/*
+ * Info banner.
+ */
+/* This is needed because otherwise the top and bottom margin are not equal within the alert box. */
+#themeboostcampusinfobanner p {
+    margin-bottom: 0;
+}
+
 
 /*------------------------------------
   Additional Elements

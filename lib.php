@@ -200,3 +200,44 @@ function theme_boost_campus_reset_app_cache() {
     // we also delete the complete theme cache here.
     theme_reset_all_caches();
 }
+
+/**
+ * If setting is updated, use this callback to reset the theme_boost_campus_infobanner_dismissed user preferences.
+ */
+function theme_boost_campus_infobanner_reset_visbility() {
+    global $DB;
+
+    if (get_config('theme_boost_campus', 'infobannerresetresetvisiblity') == 1) {
+        // Get all users that have dismissed the info banner once and therefore the user preference.
+        $whereclause = 'name = \'theme_boost_campus_infobanner_dismissed\' AND value = \'1\'';
+        $users = $DB->get_records_select('user_preferences', $whereclause, null, '', 'userid');
+
+        // Initialize variable for feedback messages.
+        $somethingwentwrong = false;
+        // Store coding exception.
+        $codingexception[] = array();
+
+        foreach ($users as $user) {
+            try {
+                unset_user_preference('theme_boost_campus_infobanner_dismissed', $user->userid);
+            } catch (coding_exception $e) {
+                $somethingwentwrong = true;
+                $codingexception['message'] = $e->getMessage();
+                $codingexception['stacktrace'] = $e->getTraceAsString();
+            }
+        }
+
+        if (!$somethingwentwrong) {
+            \core\notification::success(get_string('resetvisibilitysuccess', 'theme_boost_campus'));
+        } else {
+            \core\notification::error(get_string('resetvisibilityerror', 'theme_boost_campus', $codingexception));
+        }
+
+        // Reset the checkbox.
+        set_config('infobannerresetresetvisiblity', 0, 'theme_boost_campus');
+    }
+
+    // To be safe and because there can only be one callback function added to a plugin setting,
+    // we also delete the complete theme cache here.
+    theme_reset_all_caches();
+}

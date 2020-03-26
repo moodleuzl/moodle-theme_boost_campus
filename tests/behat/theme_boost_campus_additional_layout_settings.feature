@@ -81,3 +81,168 @@ Feature: Configuring the theme_boost_campus plugin for the "Additional Layout Se
 
    # This is not testable with Behat
    # Scenario: Enable "Nav drawer full width on small screens"
+
+  Scenario: Display info banner on all available pages
+    Given the following config values are set as admin:
+      | config                | value                    | plugin             |
+      | infobannerenable      | 1                        | theme_boost_campus |
+      | infobannercontent     | "This is a test content" | theme_boost_campus |
+      | infobannerpagestoshow | mydashboard,course,login | theme_boost_campus |
+    When I log in as "teacher1"
+    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+    When I am on "Course 1" course homepage
+    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+    When I log out
+    And I click on "Log in" "link"
+    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+
+  Scenario: Display info banner only on one available page
+    Given the following config values are set as admin:
+      | config                | value                    | plugin             |
+      | infobannerenable      | 1                        | theme_boost_campus |
+      | infobannercontent     | "This is a test content" | theme_boost_campus |
+      | infobannerpagestoshow | mydashboard              | theme_boost_campus |
+    When I log in as "teacher1"
+    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+    When I am on "Course 1" course homepage
+    Then I should not see "This is a test content"
+    When I log out
+    And I click on "Log in" "link"
+    Then I should not see "This is a test content"
+
+  Scenario: Display info with the different bootstrap color classes
+    Given the following config values are set as admin:
+      | config                | value                    | plugin             |
+      | infobannerenable      | 1                        | theme_boost_campus |
+      | infobannercontent     | "This is a test content" | theme_boost_campus |
+      | infobannerpagestoshow | mydashboard              | theme_boost_campus |
+      | infobannercssclass    | primary                  | theme_boost_campus |
+    When I log in as "teacher1"
+    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+    And the "class" attribute of "#themeboostcampusinfobanner" "css_element" should contain "primary"
+    And I log out
+    Given the following config values are set as admin:
+      | config             | value     | plugin             |
+      | infobannercssclass | secondary | theme_boost_campus |
+    When I log in as "teacher1"
+    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+    And the "class" attribute of "#themeboostcampusinfobanner" "css_element" should contain "secondary"
+    And I log out
+    Given the following config values are set as admin:
+      | config             | value   | plugin             |
+      | infobannercssclass | success | theme_boost_campus |
+    When I log in as "teacher1"
+    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+    And the "class" attribute of "#themeboostcampusinfobanner" "css_element" should contain "success"
+    And I log out
+    Given the following config values are set as admin:
+      | config             | value  | plugin             |
+      | infobannercssclass | danger | theme_boost_campus |
+    When I log in as "teacher1"
+    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+    And the "class" attribute of "#themeboostcampusinfobanner" "css_element" should contain "danger"
+    And I log out
+    Given the following config values are set as admin:
+      | config             | value   | plugin             |
+      | infobannercssclass | warning | theme_boost_campus |
+    When I log in as "teacher1"
+    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+    And the "class" attribute of "#themeboostcampusinfobanner" "css_element" should contain "warning"
+    And I log out
+    Given the following config values are set as admin:
+      | config             | value | plugin             |
+      | infobannercssclass | info  | theme_boost_campus |
+    When I log in as "teacher1"
+    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+    And the "class" attribute of "#themeboostcampusinfobanner" "css_element" should contain "info"
+    And I log out
+    Given the following config values are set as admin:
+      | config             | value | plugin             |
+      | infobannercssclass | light | theme_boost_campus |
+    When I log in as "teacher1"
+    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+    And the "class" attribute of "#themeboostcampusinfobanner" "css_element" should contain "light"
+    And I log out
+    Given the following config values are set as admin:
+      | config             | value | plugin             |
+      | infobannercssclass | dark  | theme_boost_campus |
+    When I log in as "teacher1"
+    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+    And the "class" attribute of "#themeboostcampusinfobanner" "css_element" should contain "dark"
+    And I log out
+
+  Scenario: Save content but do not enable the info banner setting at all.
+    Given the following config values are set as admin:
+      | config                | value                    | plugin             |
+      | infobannerenable      | 0                        | theme_boost_campus |
+      | infobannercontent     | "This is a test content" | theme_boost_campus |
+      | infobannerpagestoshow | mydashboard              | theme_boost_campus |
+    When I log in as "teacher1"
+    Then I should not see "This is a test content"
+
+#  # This does not work currently
+#  # The clicking away of the Bootstrap alert leads to this error - see MDL-69086.
+#  # TODO: Reevaluate when MDL-69086 is fixed.
+#  @javascript @_alert
+#  Scenario: Enable setting "Info banner dismissible"
+#    Given the following config values are set as admin:
+#      | config                | value                    | plugin             |
+#      | infobannerenable      | 1                        | theme_boost_campus |
+#      | infobannercontent     | "This is a test content" | theme_boost_campus |
+#      | infobannerpagestoshow | mydashboard              | theme_boost_campus |
+#      | infobannerdismissible | 1                        | theme_boost_campus |
+#    When I log in as "teacher1"
+#    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+#    When I click on "#themeboostcampusinfobannerclosebutton" "css_element"
+#    Then I should not see "This is a test content"
+#
+#  # This does not work currently
+#  # The clicking away of the Bootstrap alert leads to this error - see MDL-69086.
+#  # TODO: Reevaluate when MDL-69086 is fixed.
+#  # This setting depends on the setting "Info banner dismissible"
+#  @javascript @_alert
+#  Scenario: Enable setting "Confirmation dialogue"
+#    Given the following config values are set as admin:
+#      | config                    | value                    | plugin             |
+#      | infobannerenable          | 1                        | theme_boost_campus |
+#      | infobannercontent         | "This is a test content" | theme_boost_campus |
+#      | infobannerpagestoshow     | mydashboard              | theme_boost_campus |
+#      | infobannerdismissible     | 1                        | theme_boost_campus |
+#      | infobannerconfirmdialogue | 1                        | theme_boost_campus |
+#    When I log in as "teacher1"
+#    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+#    When I click on "#themeboostcampusinfobannerclosebutton" "css_element"
+#    Then I should see "Confirmation" in the ".modal-title" "css_element"
+#    When I click on "Cancel" "button" in the ".modal-footer" "css_element"
+#    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+#    When I click on "#themeboostcampusinfobannerclosebutton" "css_element"
+#    Then I should see "Confirmation" in the ".modal-title" "css_element"
+#    When I click on "Yes, close!" "button" in the ".modal-footer" "css_element"
+#    Then I should not see "This is a test content"
+#
+#  # This does not work currently
+#  # The clicking away of the Bootstrap alert leads to this error - see MDL-69086.
+#  # TODO: Reevaluate when MDL-69086 is fixed.
+#  # This setting depends on the setting "Info banner dismissible"
+#  @javascript @_alert
+#  Scenario: Enable setting "Reset visibility"
+#    Given the following config values are set as admin:
+#      | config                        | value                    | plugin             |
+#      | infobannerenable              | 1                        | theme_boost_campus |
+#      | infobannercontent             | "This is a test content" | theme_boost_campus |
+#      | infobannerpagestoshow         | mydashboard              | theme_boost_campus |
+#      | infobannerdismissible         | 1                        | theme_boost_campus |
+#    When I log in as "teacher1"
+#    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"
+#    When I click on "#themeboostcampusinfobannerclosebutton" "css_element"
+#    Then I should not see "This is a test content"
+#    And I log out
+#    When I log in as "admin"
+#    And I navigate to "Appearance > Boost Campus" in site administration
+#    And I click on "Additional Layout Settings" "link"
+#    And I click on "Reset visibility" "checkbox"
+#    And I press "Save Changes"
+#    Then I should see "Success! All info banner instances are visible again."
+#    And I log out
+#    When I log in as "teacher 1"
+#    Then I should see "This is a test content" in the "#themeboostcampusinfobanner" "css_element"

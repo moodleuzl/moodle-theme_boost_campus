@@ -30,12 +30,40 @@ require_once($CFG->dirroot . '/theme/boost_campus/locallib.php');
 $bodyattributes = $OUTPUT->body_attributes();
 $loginbackgroundimagetext = theme_boost_campus_get_loginbackgroundimage_text();
 
+// MODIFICATION START: Set this variable in any case as it's needed in the login.mustache file.
+$infobannershowonselectedpage = false;
+// MODIFICATION END.
+
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
     'bodyattributes' => $bodyattributes,
-    'loginbackgroundimagetext' => $loginbackgroundimagetext
+    'loginbackgroundimagetext' => $loginbackgroundimagetext,
+    'infobannershowonselectedpage' => $infobannershowonselectedpage
 ];
+
+// MODIFICATION START: Settings for information banner.
+$infobannerenable = get_config('theme_boost_campus', 'infobannerenable');
+
+if ($infobannerenable) {
+    $infobannercontent = format_text(get_config('theme_boost_campus', 'infobannercontent'), FORMAT_HTML);
+    // Result of multiselect is a string divided by a comma, so exploding into an array.
+    $infobannerpagestoshow = explode(",", get_config('theme_boost_campus', 'infobannerpagestoshow'));
+    $infobannercssclass = get_config('theme_boost_campus', 'infobannercssclass');
+
+    // Traverse multiselect setting.
+    foreach ($infobannerpagestoshow as $page) {
+        // Decide if the info banner should be shown at all.
+        if ($infobannerenable && !empty($infobannercontent) && $PAGE->pagelayout == $page) {
+            $infobannershowonselectedpage = true;
+        }
+    }
+
+    // Add the variables to the templatecontext array.
+    $templatecontext['infobannercontent'] = $infobannercontent;
+    $templatecontext['infobannercssclass'] = $infobannercssclass;
+    $templatecontext['infobannershowonselectedpage'] = $infobannershowonselectedpage;
+}
 
 // MODIFICATION START: Handle additional layout elements.
 // The output buffer is needed to render the additional layout elements now without outputting them to the page directly.

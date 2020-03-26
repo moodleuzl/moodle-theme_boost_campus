@@ -31,6 +31,10 @@
     * regionmainsettingsmenu - HTML for the region main settings menu
     * hasregionmainsettingsmenu - There is a region main settings menu on this page.
     * pagebottomelements - HTML for all additional layout elements below the main content, e.g. the footer.
+    * infobannershowonselectedpage - true if the info banner should be displayed.
+    * infobannercontent - The content that should be shown in the information banner.
+    * infobannercssclass - The Bootstrap class that is used for the info banner.
+    * infobannerdismissible - true if the setting infobannerdismissible is enabled.
 
     Example context (json):
     {
@@ -47,7 +51,12 @@
         "navdraweropen":true,
         "regionmainsettingsmenu": "",
         "hasregionmainsettingsmenu": false,
-        "pagebottomelements": ""
+        "pagebottomelements": "".,
+        "infobannershowonselectedpage":true,
+        "infobannercontent": "This is a test content.",
+        "infobannercssclass": primary,
+        "infobannerdismissible": true,
+        "infobannerconfirmationdialogue" : true
     }
 }}
 {{! MODIFICATION:
@@ -58,6 +67,7 @@
     * Call to own navbar mustache template instead of boost/navbar.
     * Add own additional layout elements: the footer, footnote or image area.
     * Moved the variable output.standard_end_of_body_html from footer.mustache to solve Javascript issues with behat tests.
+    * Added the possibility to show an information banner.
 }}
 {{> theme_boost/head }}
 
@@ -72,6 +82,18 @@
     {{> theme_boost/nav-drawer }}
 
     <div id="page" class="container-fluid d-print-block">
+
+        {{#infobannershowonselectedpage}}
+        <div id="themeboostcampusinfobanner" class="alert alert-{{{ infobannercssclass }}} {{#infobannerdismissible}}alert-dismissible fade show{{/infobannerdismissible}} mt-3" role="alert">
+          {{{ infobannercontent }}}
+          {{#infobannerdismissible}}
+          <button type="button" id="themeboostcampusinfobannerclosebutton" class="close" data-dismiss="alert" aria-label="{{#str}}close, theme_boost_campus{{/str}}">
+              <span aria-hidden="true">&times;</span>
+           </button>
+           {{/infobannerdismissible}}
+        </div>
+        {{/infobannershowonselectedpage}}
+
         {{{ output.full_header }}}
 
         <div id="page-content" class="row pb-3 d-print-block">
@@ -135,4 +157,9 @@ require(['theme_boost_campus/catchshortcuts'], function(mod) {
     mod.init();
     });
 {{/incoursesettings}}
+{{#infobannershowonselectedpage}}
+    require(['theme_boost_campus/infobanner'], function(mod) {
+    mod.init({{{infobannerconfirmationdialogue}}});
+    });
+{{/infobannershowonselectedpage}}
 {{/js}}

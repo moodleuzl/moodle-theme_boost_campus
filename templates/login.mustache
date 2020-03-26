@@ -25,13 +25,21 @@
             "doctype": "<!DOCTYPE html>",
             "page_title": "Login page",
             "favicon": "favicon.ico",
-            "main_content": "<h1>Headers keep HTML validators happy</h1>"
+            "main_content": "<h1>Headers keep HTML validators happy</h1>",
+            "infobannershowonselectedpage": true,
+            "infobannercontent": "This is a test content.",
+            "infobannercssclass": primary,
+            "infobannerdismissible": true
         }
         * pagebottomelements - HTML for all additional layout elements: the footnote.
+        * infobannershowonselectedpage - true if the info banner should be displayed.
+        * infobannercontent - The content that should be shown in the information banner.
+        * infobannercssclass - The Bootstrap class that is used for the info banner.
     }
 }}
 {{! MODIFICATION:
     * Add own additional layout elements: the footnote.
+    * Added the possibility to show an information banner.
 }}
 {{> theme_boost/head }}
 
@@ -41,6 +49,12 @@
 <div id="page-wrapper">
 
     {{{ output.standard_top_of_body_html }}}
+
+    {{#infobannershowonselectedpage}}
+    <div id="themeboostcampusinfobanner" class="alert alert-{{{ infobannercssclass }}} m-3" role="alert">
+        {{{ infobannercontent }}}
+    </div>
+    {{/infobannershowonselectedpage}}
 
     <div id="page" class="container-fluid mt-0">
         <div id="page-content" class="row">
