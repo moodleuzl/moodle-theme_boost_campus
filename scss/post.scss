@@ -878,7 +878,8 @@ a[href^="mailto"]::before {
  * Info banner.
  */
 /* This is needed because otherwise the top and bottom margin are not equal within the alert box. */
-#themeboostcampusinfobanner p {
+#themeboostcampusperpinfobanner p,
+#themeboostcampustimedinfobanner p {
     margin-bottom: 0;
 }
 

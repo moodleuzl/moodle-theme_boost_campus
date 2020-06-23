@@ -232,7 +232,7 @@ This setting has no effect for the banners shown on the login page. Because bann
 
 When you enable this setting you can show a confirmation dialogue to a user when he is dismissing the info banner.
 
-The text is saved in the string with the name \"closinginfobanner\":
+The text is saved in the string with the name \"closingperpetualinfobanner\":
 ```
 Are you sure you want to dismiss this information? Once done it will not occur again!
 ```

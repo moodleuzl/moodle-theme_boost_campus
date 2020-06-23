@@ -35,7 +35,7 @@ define(['jquery', 'core/str', 'core/modal_factory', 'core/modal_events', 'core/n
                 key: 'confirmation',
                 component: 'theme_boost_campus'
             }, {
-                key: 'closinginfobanner',
+                key: 'closingperpetualinfobanner',
                 component: 'theme_boost_campus'
             } , {
                 key: 'yes_close',
@@ -48,7 +48,7 @@ define(['jquery', 'core/str', 'core/modal_factory', 'core/modal_events', 'core/n
         var modalPromise = ModalFactory.create({type: ModalFactory.types.SAVE_CANCEL});
 
         // With this we store the dismissing of the info banner as a user preference to persist this decision.
-        $('#themeboostcampusinfobanner .close').click(function(event) {
+        $('#themeboostcampusperpinfobanner .close').click(function(event) {
             // Stop propagation to keep the info banner there until the decision in the confirmation dialogue has been made.
             event.stopPropagation();
 
@@ -61,7 +61,7 @@ define(['jquery', 'core/str', 'core/modal_factory', 'core/modal_events', 'core/n
                     modal.getRoot().on(ModalEvents.save, function () {
                         M.util.set_user_preference('theme_boost_campus_infobanner_dismissed', true);
                         // Now close the alert.
-                        $('#themeboostcampusinfobanner').alert('close');
+                        $('#themeboostcampusperpinfobanner').alert('close');
                     });
                     modal.show();
                     return modal;
@@ -69,7 +69,7 @@ define(['jquery', 'core/str', 'core/modal_factory', 'core/modal_events', 'core/n
             } else {
                 M.util.set_user_preference('theme_boost_campus_infobanner_dismissed', true);
                 // Now close the alert.
-                $('#themeboostcampusinfobanner').alert('close');
+                $('#themeboostcampusperpinfobanner').alert('close');
             }
         });
     }

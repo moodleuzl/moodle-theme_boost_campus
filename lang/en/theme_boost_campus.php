@@ -170,37 +170,6 @@ $string['defaulthomepageontopsetting_desc'] = 'By checking this setting the defa
 // ...Navdrawer full width on small screens.
 $string['navdrawerfullwidthsetting'] = 'Nav drawer full width on small screens';
 $string['navdrawerfullwidthsettings_desc'] = 'By checking this setting you can enlarge the opened nav drawer menu to the full page width on small screens. This may be wanted because on small screens only very few of the main content area in the background is visible. And a full width menu might serve the users\' expectations how menus are displayed on small screens.';
-// ...Information banner.
-$string['infobannerheadingsetting'] = 'Information banner';
-$string['infobannerheadingsetting_desc'] = 'The following settings allow to show some important information within a prominent banner.';
-$string['infobannerenablesetting'] = 'Enable info banner';
-$string['infobannerenablesetting_desc'] = 'With this checkbox you can decide if the info banner should be shown or hidden on the selected pages.';
-$string['infobannercontent'] = 'Information banner content';
-$string['infobannercontent_desc'] = 'Enter your information which should be shown within the banner here.';
-$string['infobannerpagestoshowsetting'] = 'Page layouts to display the info banner on';
-$string['infobannerpagestoshowsetting_desc'] = 'With this setting you can select the pages on which the info banner should be displayed.';
-$string['infobannercssclasssetting'] = 'Bootstrap css class';
-$string['infobannercssclasssetting_desc'] = 'With this setting you can select the Bootstrap style with which the info banner should be displayed.';
-$string['bootstrapprimarycolor'] = 'Primary color';
-$string['bootstrapsecondarycolor'] = 'Secondary color';
-$string['bootstrapsuccesscolor'] = 'Success color';
-$string['bootstrapdangercolor'] = 'Danger color';
-$string['bootstrapwarningcolor'] = 'Warning color';
-$string['bootstrapinfocolor'] = 'Info color';
-$string['bootstraplightcolor'] = 'Light color';
-$string['bootstrapdarkcolor'] = 'Dark color';
-$string['infobannerdismissiblesetting'] = 'Info banner dismissible';
-$string['infobannerdismissiblesetting_desc'] = 'With this checkbox you can make the banner dismissible permanently. If the user clicks on the x-button a confirmation dialogue will appear and only after the user confirmed this dialogue the banner will be hidden for this user permanently.
-<br/><br/>Please note: <br/> This setting has no effect for the banners shown on the login page. Because banners on the login page cannot be clicked away permanently, we do not offer the possibility to click the banner away at all on the login page.';
-$string['infobannerconfirmdialoguesetting'] = 'Confirmation dialogue';
-$string['infobannerconfirmdialoguesetting_desc'] = 'When you enable this setting you can show a confirmation dialogue to a user when he is dismissing the info banner.
-<br/>The text is saved in the string with the name "closinginfobanner":<br/><br/>
-Are you sure you want to dismiss this information? Once done it will not occur again!<br/><br/>
-You can override this within your language customization if you need some other text in this dialogue.';
-$string['infobannerresetvisiblitysetting'] = 'Reset visibility';
-$string['infobannerresetvisiblitysetting_desc'] = 'By enabling this checkbox, the visibility of the individually dismissed info banners will be set to visible again. You can use this setting if you made important content changes and want to show the info to all users again.<br/><br/>
-Please note: <br/>
-After saving this option, the database operations for resetting the visibility will be triggered and this checkbox will be unticked again. The next enabling and saving of this feature will trigger the database operations for resetting the visibility again.';
 
 // Design settings.
 $string['designsettings'] = 'Design Settings';
@@ -253,20 +222,74 @@ $string['additionalresourcessetting_desc'] = 'With this setting you can upload a
 The advantage of uploading files to this file area is that those files can be delivered without a check if the user is logged in. This is also why you should only add files that are uncritical and everyone should be allowed to access and don\'t need be protected with a valid login. <br/>
 An example for a use case can be found in the README.md file.';
 
+// Info banner settings.
+$string['infobannersettings'] = 'Info banner Settings';
+
+// ...Perpetual information banner.
+$string['perpetualinfobannerheadingsetting'] = 'Perpetual information banner';
+$string['perpetualinfobannerheadingsetting_desc'] = 'The following settings allow to show some important information within a prominent perpetual banner.';
+$string['perpetualinfobannerenablesetting'] = 'Enable perpetual info banner';
+$string['perpetualinfobannerenablesetting_desc'] = 'With this checkbox you can decide if the perpetual information banner should be shown or hidden on the selected pages.';
+$string['perpetualinfobannercontent'] = 'Perpetual information banner content';
+$string['perpetualinfobannercontent_desc'] = 'Enter your information which should be shown within the banner here.';
+$string['perpetualinfobannerpagestoshowsetting'] = 'Page layouts to display the info banner on';
+$string['perpetualinfobannerpagestoshowsetting_desc'] = 'With this setting you can select the pages on which the perpetual information banner should be displayed.';
+$string['perpetualinfobannercssclasssetting'] = 'Bootstrap css class for the perpetual info banner';
+$string['perpetualinfobannercssclasssetting_desc'] = 'With this setting you can select the Bootstrap style with which the perpetual information banner should be displayed.';
+$string['perpetualinfobannerdismissiblesetting'] = 'Perpetual info banner dismissible';
+$string['perpetualinfobannerdismissiblesetting_desc'] = 'With this checkbox you can make the banner dismissible permanently. If the user clicks on the x-button a confirmation dialogue will appear and only after the user confirmed this dialogue the banner will be hidden for this user permanently.
+<br/><br/>Please note: <br/> This setting has no effect for the banners shown on the login page. Because banners on the login page cannot be clicked away permanently, we do not offer the possibility to click the banner away at all on the login page.';
+$string['perpetualinfobannerconfirmdialoguesetting'] = 'Confirmation dialogue';
+$string['perpetualinfobannerconfirmdialoguesetting_desc'] = 'When you enable this setting you can show a confirmation dialogue to a user when he is dismissing the info banner.
+<br/>The text is saved in the string with the name "closingperpetualinfobanner":<br/><br/>
+Are you sure you want to dismiss this information? Once done it will not occur again!<br/><br/>
+You can override this within your language customization if you need some other text in this dialogue.';
+$string['perpetualinfobannerresetvisiblitysetting'] = 'Reset visibility for perpetual info banner';
+$string['perpetualinfobannerresetvisiblitysetting_desc'] = 'By enabling this checkbox, the visibility of the individually dismissed perpetual info banners will be set to visible again. You can use this setting if you made important content changes and want to show the info to all users again.<br/><br/>
+Please note: <br/>
+After saving this option, the database operations for resetting the visibility will be triggered and this checkbox will be unticked again. The next enabling and saving of this feature will trigger the database operations for resetting the visibility again.';
+
+// ...Time controlled information banner.
+$string['timedinfobannerheadingsetting'] = 'Time controlled information banner';
+$string['timedinfobannerheadingsetting_desc'] = 'The following settings allow to show some important information within a prominent time controlled banner.';
+$string['timedinfobannerenablesetting'] = 'Enable time controlled info banner';
+$string['timedinfobannerenablesetting_desc'] = 'With this checkbox you can decide if the time controlled information banner should be shown or hidden on the selected pages.';
+$string['timedinfobannercontent'] = 'Time controlled information banner content';
+$string['timedinfobannercontent_desc'] = 'Enter your information which should be shown within the time controlled banner here.';
+$string['timedinfobannerpagestoshowsetting'] = 'Page layouts to display the info banner on.';
+$string['timedinfobannerpagestoshowsetting_desc'] = 'With this setting you can select the pages on which the time controlled information banner should be displayed.
+<br/> If both info banners are active on a selected layout, the time controlled info banner will always appear above the perpetual info banner!';
+$string['timedinfobannercssclasssetting'] = 'Bootstrap css class for the time controlled info banner';
+$string['timedinfobannercssclasssetting_desc'] = 'With this setting you can select the Bootstrap style with which the time controlled information banner should be displayed.';
+$string['timedinfobannerstarttimesetting'] = 'Start time for the time controlled info banner';
+$string['timedinfobannerstarttimesetting_desc'] = 'With this setting you can define when the time controlled information banner should be displayed on the selected pages.
+<br/>Please enter the Date in this format: YYYY-MM-DD HH:MM:SS+/-UTC-difference. For example: "2020-01-01 08:00:00+1"';
+$string['timedinfobannerendtimesetting'] = 'End time for the time controlled info banner';
+$string['timedinfobannerendtimesetting_desc'] = 'With this setting you can define when the time controlled information banner should be hidden on the selected pages.
+<br/>Please enter the Date in this format: YYYY-MM-DD HH:MM:SS+/-UTC-difference. For example: "2020-01-01 08:00:00+1"';
+
 // ADDITIONAL STRINGS (IN ALPHABETICAL ORDER).
 $string['backtotop'] = 'Back to top';
+$string['bootstrapprimarycolor'] = 'Primary color';
+$string['bootstrapsecondarycolor'] = 'Secondary color';
+$string['bootstrapsuccesscolor'] = 'Success color';
+$string['bootstrapdangercolor'] = 'Danger color';
+$string['bootstrapwarningcolor'] = 'Warning color';
+$string['bootstrapinfocolor'] = 'Info color';
+$string['bootstraplightcolor'] = 'Light color';
+$string['bootstrapdarkcolor'] = 'Dark color';
 $string['cachedef_imagearea'] = 'Cache for imagearea items';
 $string['close'] = 'Close';
 $string['confirmation'] = 'Confirmation';
-$string['closinginfobanner'] = 'Are you sure you want to dismiss this information? Once done it will not occur again!';
+$string['closingperpetualinfobanner'] = 'Are you sure you want to dismiss this information? Once done it will not occur again!';
 $string['login_page'] = "Login page";
-$string['resetvisibilityerror'] = 'Oops... Something went wrong updating the database tables. The user preference "theme_boost_campus_infobanner_dismissed" should have been reset in the table "user_preferences".
+$string['resetperpetualinfobannervisibilityerror'] = 'Oops... Something went wrong updating the database tables. The user preference "theme_boost_campus_infobanner_dismissed" should have been reset in the table "user_preferences".
 <br/>Exception thrown: {$a->message}.
 <br/>Stack Trace:
 <br/>{$a->stacktrace}.
-<br/>The setting "Reset visibility" has been reset nevertheless.';
-$string['resetvisibilitysuccess'] = 'Success! All info banner instances are visible again.
-<br/>The setting "Reset visibility" has been reset.';
+<br/>The setting "Reset visibility for perpetual info banner" has been reset nevertheless.';
+$string['resetperpetualinfobannersuccess'] = 'Success! All perpetual info banner instances are visible again.
+<br/>The setting "Reset visibility for perpetual info banner" has been reset.';
 $string['showhintcourseguestaccessgeneral'] = 'You are currently viewing this course as <strong>{$a->role}</strong>.';
 $string['showhintcourseguestaccesslink'] = 'To have full access to the course, you can <a href="{$a->url}">self enrol into this course</a>.';
 $string['showhintcoursehiddengeneral'] = 'This course is currently <strong>hidden</strong>. Only enrolled teachers can access this course when hidden.';
@@ -274,8 +297,7 @@ $string['showhintcoursehiddensettingslink'] = 'You can change the visibility in 
 $string['switchroleto'] = 'Switch role to';
 $string['yes_close'] = "Yes, close!";
 
-
 // PRIVACY.
-$string['privacy:metadata:preference:infobanner_dismissed'] = 'The user preference for the status if the info banner has been dismissed.';
-$string['privacy:metadata:request:infobanner_dismissed_yes'] = 'Info banner has been dismissed.';
-$string['privacy:metadata:request:infobanner_dismissed_no'] = 'Info banner has not been dismissed.';
+$string['privacy:metadata:preference:infobanner_dismissed'] = 'The user preference for the status if the perpetual info banner has been dismissed.';
+$string['privacy:metadata:request:infobanner_dismissed_yes'] = 'Perpetual info banner has been dismissed.';
+$string['privacy:metadata:request:infobanner_dismissed_no'] = 'Perpetual info banner has not been dismissed.';

@@ -30,8 +30,9 @@ require_once($CFG->dirroot . '/theme/boost_campus/locallib.php');
 $bodyattributes = $OUTPUT->body_attributes();
 $loginbackgroundimagetext = theme_boost_campus_get_loginbackgroundimage_text();
 
-// MODIFICATION START: Set this variable in any case as it's needed in the login.mustache file.
-$infobannershowonselectedpage = false;
+// MODIFICATION START: Set these variables in any case as it's needed in the columns2.mustache file.
+$perpinfobannershowonselectedpage = false;
+$timedinfobannershowonselectedpage = false;
 // MODIFICATION END.
 
 $templatecontext = [
@@ -39,31 +40,76 @@ $templatecontext = [
     'output' => $OUTPUT,
     'bodyattributes' => $bodyattributes,
     'loginbackgroundimagetext' => $loginbackgroundimagetext,
-    'infobannershowonselectedpage' => $infobannershowonselectedpage
+    'perpinfobannershowonselectedpage' => $perpinfobannershowonselectedpage,
+    'timedinfobannershowonselectedpage' => $timedinfobannershowonselectedpage
 ];
 
 // MODIFICATION START: Settings for information banner.
-$infobannerenable = get_config('theme_boost_campus', 'infobannerenable');
+$perpetualinfobannerenable = get_config('theme_boost_campus', 'perpetualinfobannerenable');
 
-if ($infobannerenable) {
-    $infobannercontent = format_text(get_config('theme_boost_campus', 'infobannercontent'), FORMAT_HTML);
+if ($perpetualinfobannerenable) {
+    $perpetualinfobannercontent = format_text(get_config('theme_boost_campus', 'perpetualinfobannercontent'), FORMAT_HTML);
     // Result of multiselect is a string divided by a comma, so exploding into an array.
-    $infobannerpagestoshow = explode(",", get_config('theme_boost_campus', 'infobannerpagestoshow'));
-    $infobannercssclass = get_config('theme_boost_campus', 'infobannercssclass');
+    $perpetualinfobannerpagestoshow = explode(",", get_config('theme_boost_campus', 'perpetualinfobannerpagestoshow'));
+    $perpetualinfobannercssclass = get_config('theme_boost_campus', 'perpetualinfobannercssclass');
 
-    // Traverse multiselect setting.
-    foreach ($infobannerpagestoshow as $page) {
-        // Decide if the info banner should be shown at all.
-        if ($infobannerenable && !empty($infobannercontent) && $PAGE->pagelayout == $page) {
-            $infobannershowonselectedpage = true;
-        }
+    $perpinfobannershowonselectedpage = theme_boost_campus_show_banner_on_selected_page($perpetualinfobannerpagestoshow,
+            $perpetualinfobannercontent, $PAGE->pagelayout, false);
+
+    var_dump("BLA    :");
+    var_dump($perpinfobannershowonselectedpage);
+
+    // Add the variables to the templatecontext array.
+    $templatecontext['perpetualinfobannercontent'] = $perpetualinfobannercontent;
+    $templatecontext['perpetualinfobannercssclass'] = $perpetualinfobannercssclass;
+    $templatecontext['perpinfobannershowonselectedpage'] = $perpinfobannershowonselectedpage;
+}
+// MODIFICATION END.
+
+// MODIFICATION START: Settings for time controlled information banner.
+$timedinfobannerenable = get_config('theme_boost_campus', 'timedinfobannerenable');
+
+if ($timedinfobannerenable) {
+    $timedinfobannercontent = format_text(get_config('theme_boost_campus', 'timedinfobannercontent'), FORMAT_HTML);
+    // Result of multiselect is a string divided by a comma, so exploding into an array.
+    $timedinfobannerpagestoshow = explode(",", get_config('theme_boost_campus', 'timedinfobannerpagestoshow'));
+    $timedinfobannercssclass = get_config('theme_boost_campus', 'timedinfobannercssclass');
+    $timedinfobannerstarttimesetting = get_config('theme_boost_campus', 'timedinfobannerstarttime');
+    $timedinfobannerendtimesetting = get_config('theme_boost_campus', 'timedinfobannerendtime');
+    $now = time();
+
+    // Check if settings are empty and try to convert the string to a unix timestamp.
+    if (empty($timedinfobannerstarttimesetting)) {
+        $timedinfobannerstarttimeempty = true;
+    } else {
+        $timedinfobannerstarttime = strtotime($timedinfobannerstarttimesetting);
+    }
+    if (empty($timedinfobannerendtimesetting)) {
+        $timedinfobannerendtimeempty = true;
+    } else {
+        $timedinfobannerendtime = strtotime($timedinfobannerendtimesetting);
+    }
+
+    // Add the time check:
+    // Show the banner when now is between start and end time and both dates are correctly set OR
+    // Show the banner when start is not set but end is not reaches yet and end date is correctly set OR
+    // Show the banner when end is not set, but start lies in the past and start date is correct set OR
+    // Show the banner if no dates are set, so there's no time restriction.
+    if (($now >= $timedinfobannerstarttime && $now <= $timedinfobannerendtime && $timedinfobannerstarttime != false
+                    && $timedinfobannerendtime != false) ||
+            ($timedinfobannerstarttimeempty && $now <= $timedinfobannerendtime && $timedinfobannerendtime != false) ||
+            ($now >= $timedinfobannerstarttime && $timedinfobannerendtimeempty && $timedinfobannerstarttime != false) ||
+            ($timedinfobannerstarttimeempty && $timedinfobannerendtimeempty)) {
+        $timedinfobannershowonselectedpage = theme_boost_campus_show_banner_on_selected_page($timedinfobannerpagestoshow,
+                $timedinfobannercontent, $PAGE->pagelayout, false);
     }
 
     // Add the variables to the templatecontext array.
-    $templatecontext['infobannercontent'] = $infobannercontent;
-    $templatecontext['infobannercssclass'] = $infobannercssclass;
-    $templatecontext['infobannershowonselectedpage'] = $infobannershowonselectedpage;
+    $templatecontext['timedinfobannercontent'] = $timedinfobannercontent;
+    $templatecontext['timedinfobannercssclass'] = $timedinfobannercssclass;
+    $templatecontext['timedinfobannershowonselectedpage'] = $timedinfobannershowonselectedpage;
 }
+// MODIFICATION END.
 
 // MODIFICATION START: Handle additional layout elements.
 // The output buffer is needed to render the additional layout elements now without outputting them to the page directly.

@@ -26,20 +26,26 @@
             "page_title": "Login page",
             "favicon": "favicon.ico",
             "main_content": "<h1>Headers keep HTML validators happy</h1>",
-            "infobannershowonselectedpage": true,
-            "infobannercontent": "This is a test content.",
-            "infobannercssclass": primary,
-            "infobannerdismissible": true
+            "timedinfobannershowonselectedpage":true,
+            "timedinfobannercontent": "This is a test content for perpetual info banner.",
+            "timedinfobannercssclass": danger,
+            "perpinfobannershowonselectedpage": true,
+            "perpetualinfobannercontent": "This is a test content.",
+            "perpetualinfobannercssclass": primary,
+            "perpetualinfobannerdismissible": true
         }
         * pagebottomelements - HTML for all additional layout elements: the footnote.
-        * infobannershowonselectedpage - true if the info banner should be displayed.
-        * infobannercontent - The content that should be shown in the information banner.
-        * infobannercssclass - The Bootstrap class that is used for the info banner.
+        * timedinfobannershowonselectedpage - true if the time controlled info banner should be displayed.
+        * timedetualinfobannercontent - The content that should be shown in the time controled information banner.
+        * timedetualinfobannercssclass - The Bootstrap class that is used for the time controlled info banner.
+        * perpinfobannershowonselectedpage - true if the info banner should be displayed.
+        * perpetualinfobannercontent - The content that should be shown in the information banner.
+        * perpetualinfobannercssclass - The Bootstrap class that is used for the info banner.
     }
 }}
 {{! MODIFICATION:
     * Add own additional layout elements: the footnote.
-    * Added the possibility to show an information banner.
+    * Added the possibility to show information banners.
 }}
 {{> theme_boost/head }}
 
@@ -50,11 +56,17 @@
 
     {{{ output.standard_top_of_body_html }}}
 
-    {{#infobannershowonselectedpage}}
-    <div id="themeboostcampusinfobanner" class="alert alert-{{{ infobannercssclass }}} m-3" role="alert">
-        {{{ infobannercontent }}}
+    {{#timedinfobannershowonselectedpage}}
+    <div id="themeboostcampustimedinfobanner" class="alert alert-{{{ timedinfobannercssclass }}} m-3" role="alert">
+        {{{ timedinfobannercontent }}}
     </div>
-    {{/infobannershowonselectedpage}}
+    {{/timedinfobannershowonselectedpage}}
+
+    {{#perpinfobannershowonselectedpage}}
+    <div id="themeboostcampusperpinfobanner" class="alert alert-{{{ perpetualinfobannercssclass }}} m-3" role="alert">
+        {{{ perpetualinfobannercontent }}}
+    </div>
+    {{/perpinfobannershowonselectedpage}}
 
     <div id="page" class="container-fluid mt-0">
         <div id="page-content" class="row">

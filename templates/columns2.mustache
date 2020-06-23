@@ -31,10 +31,13 @@
     * regionmainsettingsmenu - HTML for the region main settings menu
     * hasregionmainsettingsmenu - There is a region main settings menu on this page.
     * pagebottomelements - HTML for all additional layout elements below the main content, e.g. the footer.
-    * infobannershowonselectedpage - true if the info banner should be displayed.
-    * infobannercontent - The content that should be shown in the information banner.
-    * infobannercssclass - The Bootstrap class that is used for the info banner.
-    * infobannerdismissible - true if the setting infobannerdismissible is enabled.
+    * timedinfobannershowonselectedpage - true if the time controlled info banner should be displayed.
+    * timedetualinfobannercontent - The content that should be shown in the time controled information banner.
+    * timedetualinfobannercssclass - The Bootstrap class that is used for the time controlled info banner.
+    * perpinfobannershowonselectedpage - true if the perpetual info banner should be displayed.
+    * perpetualinfobannercontent - The content that should be shown in the perpetual information banner.
+    * perpetualinfobannercssclass - The Bootstrap class that is used for the perpetual info banner.
+    * perpetualinfobannerdismissible - true if the setting perpetualinfobannerdismissible is enabled.
 
     Example context (json):
     {
@@ -52,10 +55,13 @@
         "regionmainsettingsmenu": "",
         "hasregionmainsettingsmenu": false,
         "pagebottomelements": "".,
-        "infobannershowonselectedpage":true,
-        "infobannercontent": "This is a test content.",
-        "infobannercssclass": primary,
-        "infobannerdismissible": true,
+        "timedinfobannershowonselectedpage":true,
+        "timedinfobannercontent": "This is a test content for perpetual info banner.",
+        "timedinfobannercssclass": danger,
+        "perpinfobannershowonselectedpage":true,
+        "perpetualinfobannercontent": "This is a test content for perpetual info banner.",
+        "perpetualinfobannercssclass": primary,
+        "perpetualinfobannerdismissible": true,
         "infobannerconfirmationdialogue" : true
     }
 }}
@@ -67,7 +73,7 @@
     * Call to own navbar mustache template instead of boost/navbar.
     * Add own additional layout elements: the footer, footnote or image area.
     * Moved the variable output.standard_end_of_body_html from footer.mustache to solve Javascript issues with behat tests.
-    * Added the possibility to show an information banner.
+    * Added the possibility to show information banners.
 }}
 {{> theme_boost/head }}
 
@@ -83,16 +89,22 @@
 
     <div id="page" class="container-fluid d-print-block">
 
-        {{#infobannershowonselectedpage}}
-        <div id="themeboostcampusinfobanner" class="alert alert-{{{ infobannercssclass }}} {{#infobannerdismissible}}alert-dismissible fade show{{/infobannerdismissible}} mt-3" role="alert">
-          {{{ infobannercontent }}}
-          {{#infobannerdismissible}}
-          <button type="button" id="themeboostcampusinfobannerclosebutton" class="close" data-dismiss="alert" aria-label="{{#str}}close, theme_boost_campus{{/str}}">
+        {{#timedinfobannershowonselectedpage}}
+        <div id="themeboostcampusitimedinfobanner" class="alert alert-{{{ timedinfobannercssclass }}} mt-3" role="alert">
+          {{{ timedinfobannercontent }}}
+        </div>
+        {{/timedinfobannershowonselectedpage}}
+
+        {{#perpinfobannershowonselectedpage}}
+        <div id="themeboostcampusperpinfobanner" class="alert alert-{{{ perpetualinfobannercssclass }}} {{#perpetualinfobannerdismissible}}alert-dismissible fade show{{/perpetualinfobannerdismissible}} mt-3" role="alert">
+          {{{ perpetualinfobannercontent }}}
+          {{#perpetualinfobannerdismissible}}
+          <button type="button" id="themeboostcampusperpinfobannerclosebutton" class="close" data-dismiss="alert" aria-label="{{#str}}close, theme_boost_campus{{/str}}">
               <span aria-hidden="true">&times;</span>
            </button>
-           {{/infobannerdismissible}}
+           {{/perpetualinfobannerdismissible}}
         </div>
-        {{/infobannershowonselectedpage}}
+        {{/perpinfobannershowonselectedpage}}
 
         {{{ output.full_header }}}
 
@@ -157,9 +169,9 @@ require(['theme_boost_campus/catchshortcuts'], function(mod) {
     mod.init();
     });
 {{/incoursesettings}}
-{{#infobannershowonselectedpage}}
+{{#perpinfobannershowonselectedpage}}
     require(['theme_boost_campus/infobanner'], function(mod) {
     mod.init({{{infobannerconfirmationdialogue}}});
     });
-{{/infobannershowonselectedpage}}
+{{/perpinfobannershowonselectedpage}}
 {{/js}}

@@ -448,3 +448,29 @@ function theme_boost_campus_get_course_guest_access_hint($courseid) {
 
     return $html;
 }
+
+/**
+ * Return if the info banner should be displayed on current page layout.
+ *
+ * @param array $infobannerpagestoshow The list of page layouts on which the info banner should be shown.
+ * @param string $infobannercontent The content which should be displayed within the info banner.
+ * @param mixed|moodle_page $thispagelayout The current page layout.
+ * @param string $infobanneruserprefdialoguedismissed The user preference if the dissmissible banner has been dismissed.
+ * @return boolean
+ */
+function theme_boost_campus_show_banner_on_selected_page($infobannerpagestoshow, $infobannercontent, $thispagelayout,
+        $infobanneruserprefdialoguedismissed) {
+
+    // Initialize variable.
+    $infobannershowonselectedpage = false;
+
+    // Traverse multiselect setting.
+    foreach ($infobannerpagestoshow as $page) {
+        // Decide if the info banner should be shown at all.
+        if (!empty($infobannercontent) && $thispagelayout == $page && !$infobanneruserprefdialoguedismissed) {
+            $infobannershowonselectedpage = true;
+        }
+    }
+
+    return $infobannershowonselectedpage;
+}
