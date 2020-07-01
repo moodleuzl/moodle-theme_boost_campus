@@ -28,9 +28,9 @@ Feature: Configuring the theme_boost_campus plugin for the "Info banner Settings
   Scenario: Display perpetual info banner on all available pages
     Given the following config values are set as admin:
       | config                         | value                    | plugin             |
-      | perpetualinfobannerenable      | 1                        | theme_boost_campus |
-      | perpetualinfobannercontent     | "This is a test content" | theme_boost_campus |
-      | perpetualinfobannerpagestoshow | mydashboard,course,login | theme_boost_campus |
+      | perpibenable      | 1                        | theme_boost_campus |
+      | perpibcontent     | "This is a test content" | theme_boost_campus |
+      | perpibshowonpages | mydashboard,course,login | theme_boost_campus |
     When I log in as "teacher1"
     Then I should see "This is a test content" in the "#themeboostcampusperpinfobanner" "css_element"
     When I am on "Course 1" course homepage
@@ -42,9 +42,9 @@ Feature: Configuring the theme_boost_campus plugin for the "Info banner Settings
   Scenario: Display perpetual info banner only on one available page
     Given the following config values are set as admin:
       | config                         | value                    | plugin             |
-      | perpetualinfobannerenable      | 1                        | theme_boost_campus |
-      | perpetualinfobannercontent     | "This is a test content" | theme_boost_campus |
-      | perpetualinfobannerpagestoshow | mydashboard              | theme_boost_campus |
+      | perpibenable      | 1                        | theme_boost_campus |
+      | perpibcontent     | "This is a test content" | theme_boost_campus |
+      | perpibshowonpages | mydashboard              | theme_boost_campus |
     When I log in as "teacher1"
     Then I should see "This is a test content" in the "#themeboostcampusperpinfobanner" "css_element"
     When I am on "Course 1" course homepage
@@ -56,59 +56,59 @@ Feature: Configuring the theme_boost_campus plugin for the "Info banner Settings
   Scenario: Display perpetual info with the different bootstrap color classes
     Given the following config values are set as admin:
       | config                         | value                    | plugin             |
-      | perpetualinfobannerenable      | 1                        | theme_boost_campus |
-      | perpetualinfobannercontent     | "This is a test content" | theme_boost_campus |
-      | perpetualinfobannerpagestoshow | mydashboard              | theme_boost_campus |
-      | perpetualinfobannercssclass    | primary                  | theme_boost_campus |
+      | perpibenable      | 1                        | theme_boost_campus |
+      | perpibcontent     | "This is a test content" | theme_boost_campus |
+      | perpibshowonpages | mydashboard              | theme_boost_campus |
+      | perpibcss    | primary                  | theme_boost_campus |
     When I log in as "teacher1"
     Then I should see "This is a test content" in the "#themeboostcampusperpinfobanner" "css_element"
     And the "class" attribute of "#themeboostcampusperpinfobanner" "css_element" should contain "primary"
     And I log out
     Given the following config values are set as admin:
       | config                      | value     | plugin             |
-      | perpetualinfobannercssclass | secondary | theme_boost_campus |
+      | perpibcss | secondary | theme_boost_campus |
     When I log in as "teacher1"
     Then I should see "This is a test content" in the "#themeboostcampusperpinfobanner" "css_element"
     And the "class" attribute of "#themeboostcampusperpinfobanner" "css_element" should contain "secondary"
     And I log out
     Given the following config values are set as admin:
       | config                      | value   | plugin             |
-      | perpetualinfobannercssclass | success | theme_boost_campus |
+      | perpibcss | success | theme_boost_campus |
     When I log in as "teacher1"
     Then I should see "This is a test content" in the "#themeboostcampusperpinfobanner" "css_element"
     And the "class" attribute of "#themeboostcampusperpinfobanner" "css_element" should contain "success"
     And I log out
     Given the following config values are set as admin:
       | config                      | value  | plugin             |
-      | perpetualinfobannercssclass | danger | theme_boost_campus |
+      | perpibcss | danger | theme_boost_campus |
     When I log in as "teacher1"
     Then I should see "This is a test content" in the "#themeboostcampusperpinfobanner" "css_element"
     And the "class" attribute of "#themeboostcampusperpinfobanner" "css_element" should contain "danger"
     And I log out
     Given the following config values are set as admin:
       | config                      | value   | plugin             |
-      | perpetualinfobannercssclass | warning | theme_boost_campus |
+      | perpibcss | warning | theme_boost_campus |
     When I log in as "teacher1"
     Then I should see "This is a test content" in the "#themeboostcampusperpinfobanner" "css_element"
     And the "class" attribute of "#themeboostcampusperpinfobanner" "css_element" should contain "warning"
     And I log out
     Given the following config values are set as admin:
       | config                      | value | plugin             |
-      | perpetualinfobannercssclass | info  | theme_boost_campus |
+      | perpibcss | info  | theme_boost_campus |
     When I log in as "teacher1"
     Then I should see "This is a test content" in the "#themeboostcampusperpinfobanner" "css_element"
     And the "class" attribute of "#themeboostcampusperpinfobanner" "css_element" should contain "info"
     And I log out
     Given the following config values are set as admin:
       | config                      | value | plugin             |
-      | perpetualinfobannercssclass | light | theme_boost_campus |
+      | perpibcss | light | theme_boost_campus |
     When I log in as "teacher1"
     Then I should see "This is a test content" in the "#themeboostcampusperpinfobanner" "css_element"
     And the "class" attribute of "#themeboostcampusperpinfobanner" "css_element" should contain "light"
     And I log out
     Given the following config values are set as admin:
       | config                      | value | plugin             |
-      | perpetualinfobannercssclass | dark  | theme_boost_campus |
+      | perpibcss | dark  | theme_boost_campus |
     When I log in as "teacher1"
     Then I should see "This is a test content" in the "#themeboostcampusperpinfobanner" "css_element"
     And the "class" attribute of "#themeboostcampusperpinfobanner" "css_element" should contain "dark"
@@ -117,9 +117,9 @@ Feature: Configuring the theme_boost_campus plugin for the "Info banner Settings
   Scenario: Save perpetual content but do not enable the info banner setting at all.
     Given the following config values are set as admin:
       | config                         | value                    | plugin             |
-      | perpetualinfobannerenable      | 0                        | theme_boost_campus |
-      | perpetualinfobannercontent     | "This is a test content" | theme_boost_campus |
-      | perpetualinfobannerpagestoshow | mydashboard              | theme_boost_campus |
+      | perpibenable      | 0                        | theme_boost_campus |
+      | perpibcontent     | "This is a test content" | theme_boost_campus |
+      | perpibshowonpages | mydashboard              | theme_boost_campus |
     When I log in as "teacher1"
     Then I should not see "This is a test content"
 
@@ -130,10 +130,10 @@ Feature: Configuring the theme_boost_campus plugin for the "Info banner Settings
 #  Scenario: Enable setting "Perpetual info banner dismissible"
 #    Given the following config values are set as admin:
 #      | config                         | value                    | plugin             |
-#      | perpetualinfobannerenable      | 1                        | theme_boost_campus |
-#      | perpetualinfobannercontent     | "This is a test content" | theme_boost_campus |
-#      | perpetualinfobannerpagestoshow | mydashboard              | theme_boost_campus |
-#      | perpetualinfobannerdismissible | 1                        | theme_boost_campus |
+#      | perpibenable      | 1                        | theme_boost_campus |
+#      | perpibcontent     | "This is a test content" | theme_boost_campus |
+#      | perpibshowonpages | mydashboard              | theme_boost_campus |
+#      | perpibdismiss | 1                        | theme_boost_campus |
 #    When I log in as "teacher1"
 #    Then I should see "This is a test content" in the "#themeboostcampusperpinfobanner" "css_element"
 #    When I click on "#themeboostcampusperpinfobannerclosebutton" "css_element"
@@ -147,11 +147,11 @@ Feature: Configuring the theme_boost_campus plugin for the "Info banner Settings
 #  Scenario: Enable setting "Confirmation dialogue"
 #    Given the following config values are set as admin:
 #      | config                             | value                    | plugin             |
-#      | perpetualinfobannerenable          | 1                        | theme_boost_campus |
-#      | perpetualinfobannercontent         | "This is a test content" | theme_boost_campus |
-#      | perpetualinfobannerpagestoshow     | mydashboard              | theme_boost_campus |
-#      | perpetualinfobannerdismissible     | 1                        | theme_boost_campus |
-#      | perpetualinfobannerconfirmdialogue | 1                        | theme_boost_campus |
+#      | perpibenable          | 1                        | theme_boost_campus |
+#      | perpibcontent         | "This is a test content" | theme_boost_campus |
+#      | perpibshowonpages     | mydashboard              | theme_boost_campus |
+#      | perpibdismiss     | 1                        | theme_boost_campus |
+#      | perpibconfirm | 1                        | theme_boost_campus |
 #    When I log in as "teacher1"
 #    Then I should see "This is a test content" in the "#themeboostcampusperpinfobanner" "css_element"
 #    When I click on "#themeboostcampusperpinfobannerclosebutton" "css_element"
@@ -171,10 +171,10 @@ Feature: Configuring the theme_boost_campus plugin for the "Info banner Settings
 #  Scenario: Enable setting "Reset visibility for perpetual info banner"
 #    Given the following config values are set as admin:
 #      | config                                 | value                    | plugin             |
-#      | perpetualinfobannerenable              | 1                        | theme_boost_campus |
-#      | perpetualinfobannercontent             | "This is a test content" | theme_boost_campus |
-#      | perpetualinfobannerpagestoshow         | mydashboard              | theme_boost_campus |
-#      | perpetualinfobannerdismissible         | 1                        | theme_boost_campus |
+#      | perpibenable              | 1                        | theme_boost_campus |
+#      | perpibcontent             | "This is a test content" | theme_boost_campus |
+#      | perpibshowonpages         | mydashboard              | theme_boost_campus |
+#      | perpibdismiss         | 1                        | theme_boost_campus |
 #    When I log in as "teacher1"
 #    Then I should see "This is a test content" in the "#themeboostcampusperpinfobanner" "css_element"
 #    When I click on "#themeboostcampusperpinfobannerclosebutton" "css_element"

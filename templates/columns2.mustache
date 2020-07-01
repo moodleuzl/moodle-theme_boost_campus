@@ -35,9 +35,9 @@
     * timedetualinfobannercontent - The content that should be shown in the time controled information banner.
     * timedetualinfobannercssclass - The Bootstrap class that is used for the time controlled info banner.
     * perpinfobannershowonselectedpage - true if the perpetual info banner should be displayed.
-    * perpetualinfobannercontent - The content that should be shown in the perpetual information banner.
-    * perpetualinfobannercssclass - The Bootstrap class that is used for the perpetual info banner.
-    * perpetualinfobannerdismissible - true if the setting perpetualinfobannerdismissible is enabled.
+    * perpibcontent - The content that should be shown in the perpetual information banner.
+    * perpibcss - The Bootstrap class that is used for the perpetual info banner.
+    * perpibdismiss - true if the setting perpibdismiss is enabled.
 
     Example context (json):
     {
@@ -56,12 +56,12 @@
         "hasregionmainsettingsmenu": false,
         "pagebottomelements": "".,
         "timedinfobannershowonselectedpage":true,
-        "timedinfobannercontent": "This is a test content for perpetual info banner.",
-        "timedinfobannercssclass": danger,
+        "timedibcontent": "This is a test content for perpetual info banner.",
+        "timedibcss": danger,
         "perpinfobannershowonselectedpage":true,
-        "perpetualinfobannercontent": "This is a test content for perpetual info banner.",
-        "perpetualinfobannercssclass": primary,
-        "perpetualinfobannerdismissible": true,
+        "perpibcontent": "This is a test content for perpetual info banner.",
+        "perpibcss": primary,
+        "perpibdismiss": true,
         "infobannerconfirmationdialogue" : true
     }
 }}
@@ -90,19 +90,19 @@
     <div id="page" class="container-fluid d-print-block">
 
         {{#timedinfobannershowonselectedpage}}
-        <div id="themeboostcampusitimedinfobanner" class="alert alert-{{{ timedinfobannercssclass }}} mt-3" role="alert">
-          {{{ timedinfobannercontent }}}
+        <div id="themeboostcampusitimedinfobanner" class="alert alert-{{{ timedibcss }}} mt-3" role="alert">
+          {{{ timedibcontent }}}
         </div>
         {{/timedinfobannershowonselectedpage}}
 
         {{#perpinfobannershowonselectedpage}}
-        <div id="themeboostcampusperpinfobanner" class="alert alert-{{{ perpetualinfobannercssclass }}} {{#perpetualinfobannerdismissible}}alert-dismissible fade show{{/perpetualinfobannerdismissible}} mt-3" role="alert">
-          {{{ perpetualinfobannercontent }}}
-          {{#perpetualinfobannerdismissible}}
+        <div id="themeboostcampusperpinfobanner" class="alert alert-{{{ perpibcss }}} {{#perpibdismiss}}alert-dismissible fade show{{/perpibdismiss}} mt-3" role="alert">
+          {{{ perpibcontent }}}
+          {{#perpibdismiss}}
           <button type="button" id="themeboostcampusperpinfobannerclosebutton" class="close" data-dismiss="alert" aria-label="{{#str}}close, theme_boost_campus{{/str}}">
               <span aria-hidden="true">&times;</span>
            </button>
-           {{/perpetualinfobannerdismissible}}
+           {{/perpibdismiss}}
         </div>
         {{/perpinfobannershowonselectedpage}}
 

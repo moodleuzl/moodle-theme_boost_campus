@@ -207,7 +207,7 @@ function theme_boost_campus_reset_app_cache() {
 function theme_boost_campus_infobanner_reset_visbility() {
     global $DB;
 
-    if (get_config('theme_boost_campus', 'perpetualinfobannerresetresetvisiblity') == 1) {
+    if (get_config('theme_boost_campus', 'perpibresetvisibility') == 1) {
         // Get all users that have dismissed the info banner once and therefore the user preference.
         $whereclause = 'name = \'theme_boost_campus_infobanner_dismissed\' AND value = \'1\'';
         $users = $DB->get_records_select('user_preferences', $whereclause, null, '', 'userid');
@@ -230,11 +230,12 @@ function theme_boost_campus_infobanner_reset_visbility() {
         if (!$somethingwentwrong) {
             \core\notification::success(get_string('resetperpetualinfobannersuccess', 'theme_boost_campus'));
         } else {
-            \core\notification::error(get_string('resetperpetualinfobannervisibilityerror', 'theme_boost_campus', $codingexception));
+            \core\notification::error(get_string('resetperpetualinfobannervisibilityerror',
+                    'theme_boost_campus', $codingexception));
         }
 
         // Reset the checkbox.
-        set_config('perpetualinfobannerresetresetvisiblity', 0, 'theme_boost_campus');
+        set_config('perpibresetvisibility', 0, 'theme_boost_campus');
     }
 
     // To be safe and because there can only be one callback function added to a plugin setting,

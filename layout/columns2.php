@@ -103,70 +103,48 @@ $templatecontext = [
 ];
 
 // MODIFICATION START: Settings for perpetual information banner.
-$perpetualinfobannerenable = get_config('theme_boost_campus', 'perpetualinfobannerenable');
+$perpibenable = get_config('theme_boost_campus', 'perpibenable');
 
-if ($perpetualinfobannerenable) {
-    $perpetualinfobannercontent = format_text(get_config('theme_boost_campus', 'perpetualinfobannercontent'), FORMAT_HTML);
+if ($perpibenable) {
+    $perpibcontent = format_text(get_config('theme_boost_campus', 'perpibcontent'), FORMAT_HTML);
     // Result of multiselect is a string divided by a comma, so exploding into an array.
-    $perpetualinfobannerpagestoshow = explode(",", get_config('theme_boost_campus', 'perpetualinfobannerpagestoshow'));
-    $perpetualinfobannercssclass = get_config('theme_boost_campus', 'perpetualinfobannercssclass');
-    $perpetualinfobannerdismissible = get_config('theme_boost_campus', 'perpetualinfobannerdismissible');
-    $infobannerconfirmationdialogue = get_config('theme_boost_campus', 'perpetualinfobannerconfirmdialogue');
+    $perpibshowonpages = explode(",", get_config('theme_boost_campus', 'perpibshowonpages'));
+    $perpibcss = get_config('theme_boost_campus', 'perpibcss');
+    $perpibdismiss = get_config('theme_boost_campus', 'perpibdismiss');
+    $infobannerconfirmationdialogue = get_config('theme_boost_campus', 'perpibconfirm');
     $infobanneruserprefdialoguedismissed = get_user_preferences('theme_boost_campus_infobanner_dismissed');
 
-    $perpinfobannershowonselectedpage = theme_boost_campus_show_banner_on_selected_page($perpetualinfobannerpagestoshow,
-            $perpetualinfobannercontent, $PAGE->pagelayout, $infobanneruserprefdialoguedismissed);
+    $perpinfobannershowonselectedpage = theme_boost_campus_show_banner_on_selected_page($perpibshowonpages,
+            $perpibcontent, $PAGE->pagelayout, $infobanneruserprefdialoguedismissed);
 
     // Add the variables to the templatecontext array.
-    $templatecontext['perpetualinfobannercontent'] = $perpetualinfobannercontent;
-    $templatecontext['perpetualinfobannercssclass'] = $perpetualinfobannercssclass;
-    $templatecontext['perpetualinfobannerdismissible'] = $perpetualinfobannerdismissible;
+    $templatecontext['perpibcontent'] = $perpibcontent;
+    $templatecontext['perpibcss'] = $perpibcss;
+    $templatecontext['perpibdismiss'] = $perpibdismiss;
     $templatecontext['perpinfobannershowonselectedpage'] = $perpinfobannershowonselectedpage;
     $templatecontext['infobannerconfirmationdialogue'] = $infobannerconfirmationdialogue;
 }
 // MODIFICATION END.
 
 // MODIFICATION START: Settings for time controlled information banner.
-$timedinfobannerenable = get_config('theme_boost_campus', 'timedinfobannerenable');
+$timedibenable = get_config('theme_boost_campus', 'timedibenable');
 
-if ($timedinfobannerenable) {
-    $timedinfobannercontent = format_text(get_config('theme_boost_campus', 'timedinfobannercontent'), FORMAT_HTML);
+if ($timedibenable) {
+    $timedibcontent = format_text(get_config('theme_boost_campus', 'timedibcontent'), FORMAT_HTML);
     // Result of multiselect is a string divided by a comma, so exploding into an array.
-    $timedinfobannerpagestoshow = explode(",", get_config('theme_boost_campus', 'timedinfobannerpagestoshow'));
-    $timedinfobannercssclass = get_config('theme_boost_campus', 'timedinfobannercssclass');
-    $timedinfobannerstarttimesetting = get_config('theme_boost_campus', 'timedinfobannerstarttime');
-    $timedinfobannerendtimesetting = get_config('theme_boost_campus', 'timedinfobannerendtime');
-    $now = time();
+    $timedibshowonpages = explode(",", get_config('theme_boost_campus', 'timedibshowonpages'));
+    $timedibcss = get_config('theme_boost_campus', 'timedibcss');
+    $timedibstartsetting = get_config('theme_boost_campus', 'timedibstart');
+    $timedibendsetting = get_config('theme_boost_campus', 'timedibend');
+    // Get the current server time.
+    $now = (new DateTime("now", core_date::get_server_timezone_object()))->getTimestamp();
 
-    // Check if settings are empty and try to convert the string to a unix timestamp.
-    if (empty($timedinfobannerstarttimesetting)) {
-        $timedinfobannerstarttimeempty = true;
-    } else {
-        $timedinfobannerstarttime = strtotime($timedinfobannerstarttimesetting);
-    }
-    if (empty($timedinfobannerendtimesetting)) {
-        $timedinfobannerendtimeempty = true;
-    } else {
-        $timedinfobannerendtime = strtotime($timedinfobannerendtimesetting);
-    }
-
-    // Add the time check:
-    // Show the banner when now is between start and end time and both dates are correctly set OR
-    // Show the banner when start is not set but end is not reaches yet and end date is correctly set OR
-    // Show the banner when end is not set, but start lies in the past and start date is correct set OR
-    // Show the banner if no dates are set, so there's no time restriction.
-    if (($now >= $timedinfobannerstarttime && $now <= $timedinfobannerendtime && $timedinfobannerstarttime != false
-                    && $timedinfobannerendtime != false) ||
-            ($timedinfobannerstarttimeempty && $now <= $timedinfobannerendtime && $timedinfobannerendtime != false) ||
-            ($now >= $timedinfobannerstarttime && $timedinfobannerendtimeempty && $timedinfobannerstarttime != false) ||
-            ($timedinfobannerstarttimeempty && $timedinfobannerendtimeempty)) {
-        $timedinfobannershowonselectedpage = theme_boost_campus_show_banner_on_selected_page($timedinfobannerpagestoshow,
-                $timedinfobannercontent, $PAGE->pagelayout, false);
-    }
+    $timedinfobannershowonselectedpage = theme_boost_campus_show_timed_banner_on_selected_page($now, $timedibshowonpages,
+            $timedibcontent, $timedibstartsetting, $timedibendsetting, $PAGE->pagelayout);
 
     // Add the variables to the templatecontext array.
-    $templatecontext['timedinfobannercontent'] = $timedinfobannercontent;
-    $templatecontext['timedinfobannercssclass'] = $timedinfobannercssclass;
+    $templatecontext['timedibcontent'] = $timedibcontent;
+    $templatecontext['timedibcss'] = $timedibcss;
     $templatecontext['timedinfobannershowonselectedpage'] = $timedinfobannershowonselectedpage;
 }
 // MODIFICATION END.
